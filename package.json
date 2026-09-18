@@ -1,0 +1,48 @@
+{
+  "name": "sqli-guard",
+  "version": "1.0.0",
+  "description": "Catch injection attacks in text: a zero-dependency, extensible scanner for SQL injection, XSS, command injection, path traversal, NoSQL, LDAP and SSTI",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "lib/",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "sqli-guard",
+    "sql-injection",
+    "sqli",
+    "injection",
+    "security",
+    "security-scanner",
+    "xss",
+    "command-injection",
+    "path-traversal",
+    "nosql-injection",
+    "ldap-injection",
+    "ssti",
+    "sanitize",
+    "sanitization",
+    "validation",
+    "input-validation",
+    "owasp",
+    "waf"
+  ],
+  "homepage": "https://github.com/AndreyMartinez/sqli-guard#readme",
+  "bugs": {
+    "url": "https://github.com/AndreyMartinez/sqli-guard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreyMartinez/sqli-guard.git"
+  },
+  "scripts": {
+    "test": "node --test",
+    "prepublishOnly": "npm test"
+  },
+  "author": "Raphael Martinez",
+  "license": "MIT"
+}
