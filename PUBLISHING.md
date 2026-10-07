@@ -1,20 +1,20 @@
 # Publishing guide
 
-Steps to publish `sqli-guard` to the npm registry.
+Steps to publish `payload-guard` to the npm registry.
 
 ## 1. Prerequisites
 
 - An account at https://www.npmjs.com
 - Node.js >= 18 and npm installed (`node -v`, `npm -v`)
-- The name `sqli-guard` must be available or owned by you. Check it:
+- The name `payload-guard` must be available or owned by you. Check it:
 
   ```bash
-  npm view sqli-guard
+  npm view payload-guard
   ```
 
   - If it returns data for a package that is **not** yours, the name is taken:
     change `name` in `package.json` (e.g. to a scoped name
-    `@your-user/sqli-guard`).
+    `@your-user/payload-guard`).
   - If it returns `404`, the name is free.
 
 ## 2. Before publishing
@@ -59,7 +59,7 @@ npm whoami
 npm publish
 ```
 
-> If you use a scoped name (`@your-user/sqli-guard`) and want it public, add
+> If you use a scoped name (`@your-user/payload-guard`) and want it public, add
 > this the first time:
 > ```bash
 > npm publish --access public
@@ -80,15 +80,15 @@ Automation / granular write tokens bypass the interactive 2FA prompt.
 ## 5. Verify
 
 ```bash
-npm view sqli-guard
+npm view payload-guard
 ```
 
 Then test the install in a clean folder:
 
 ```bash
 mkdir /tmp/test && cd /tmp/test && npm init -y
-npm install sqli-guard
-node -e "console.log(require('sqli-guard').hasSql(\"' OR 1=1 --\"))"  # true
+npm install payload-guard
+node -e "console.log(require('payload-guard').hasSql(\"' OR 1=1 --\"))"  # true
 ```
 
 ## 6. Publishing later updates

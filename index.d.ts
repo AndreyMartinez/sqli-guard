@@ -1,4 +1,4 @@
-declare namespace SqliGuard {
+declare namespace PayloadGuard {
   type Severity = 'low' | 'medium' | 'high';
 
   type ThreatType =
@@ -73,10 +73,10 @@ declare namespace SqliGuard {
   const detectors: ReadonlyArray<{ type: string; severity: Severity; message: { en: string; es: string }; patterns: RegExp[] }>;
 }
 
-declare const sqliGuard: SqliGuard.Scanner & {
-  createScanner: typeof SqliGuard.createScanner;
-  Scanner: typeof SqliGuard.Scanner;
-  detectors: typeof SqliGuard.detectors;
+declare const payloadGuard: PayloadGuard.Scanner & {
+  createScanner: typeof PayloadGuard.createScanner;
+  Scanner: typeof PayloadGuard.Scanner;
+  detectors: typeof PayloadGuard.detectors;
 };
 
-export = sqliGuard;
+export = payloadGuard;

@@ -16,7 +16,7 @@ const SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-s
 const C = { bg: '#0d1117', card: '#161b22', line: '#30363d', text: '#e6edf3', mute: '#8b949e', green: '#3fb950', red: '#f85149', amber: '#d29922', blue: '#58a6ff', purple: '#bc8cff' };
 
 // ---------- banner ----------
-out('banner.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260" role="img" aria-label="sqli-guard: catch injection attacks before they reach your app">
+out('banner.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260" role="img" aria-label="payload-guard: catch injection attacks before they reach your app">
 <defs>
 <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#14233a"/></linearGradient>
 <linearGradient id="a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3fb950"/><stop offset="1" stop-color="#58a6ff"/></linearGradient>
@@ -27,7 +27,7 @@ out('banner.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="2
 <path d="M60 0 120 22v52c0 40-26 68-60 84C26 142 0 114 0 74V22z" fill="#161b22" stroke="url(#a)" stroke-width="5"/>
 <path d="M38 74l16 17 32-36" fill="none" stroke="#3fb950" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
-<text x="230" y="112" font-family="${SANS}" font-size="64" font-weight="800" fill="${C.text}">sqli-<tspan fill="url(#a)">guard</tspan></text>
+<text x="230" y="112" font-family="${SANS}" font-size="56" font-weight="800" fill="${C.text}">payload-<tspan fill="url(#a)">guard</tspan></text>
 <text x="232" y="154" font-family="${SANS}" font-size="22" fill="${C.mute}">Catch injection attacks before they reach your app.</text>
 <g font-family="${SANS}" font-size="14" font-weight="600">
 <rect x="232" y="182" width="150" height="30" rx="15" fill="#3fb95022" stroke="#3fb950"/><text x="307" y="202" text-anchor="middle" fill="#3fb950">0 dependencies</text>
@@ -63,12 +63,12 @@ const lines = rows.map(({ d, r }) => {
   y += rowH;
   return svg;
 }).join('\n');
-out('demo.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="${H}" viewBox="0 0 900 ${H}" role="img" aria-label="sqli-guard scanning malicious and safe inputs">
+out('demo.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="${H}" viewBox="0 0 900 ${H}" role="img" aria-label="payload-guard scanning malicious and safe inputs">
 <rect width="900" height="${H}" rx="12" fill="${C.bg}" stroke="${C.line}"/>
 <rect width="900" height="44" rx="12" fill="${C.card}"/><rect y="30" width="900" height="14" fill="${C.card}"/>
 <circle cx="26" cy="22" r="6" fill="#ff5f56"/><circle cx="48" cy="22" r="6" fill="#ffbd2e"/><circle cx="70" cy="22" r="6" fill="#27c93f"/>
-<text x="450" y="27" text-anchor="middle" font-family="${FONT}" font-size="13" fill="${C.mute}">node — sqliGuard.scan()</text>
-<text x="36" y="76" font-family="${FONT}" font-size="14" fill="${C.blue}">const sqliGuard = require('sqli-guard');</text>
+<text x="450" y="27" text-anchor="middle" font-family="${FONT}" font-size="13" fill="${C.mute}">node — payloadGuard.scan()</text>
+<text x="36" y="76" font-family="${FONT}" font-size="14" fill="${C.blue}">const payloadGuard = require('payload-guard');</text>
 ${lines}
 </svg>`);
 
@@ -105,7 +105,7 @@ ${isNew.has(t) ? `<rect x="${cw - 58}" y="14" width="42" height="18" rx="9" fill
 <text x="16" y="56" font-family="${FONT}" font-size="13" fill="${C.blue}">${esc(ex)}</text>
 <circle cx="20" cy="76" r="4" fill="${sc}"/><text x="30" y="80" font-family="${SANS}" font-size="12" fill="${C.mute}">${sev} severity · OWASP ${owasp}</text></g>`;
 }).join('\n');
-out('coverage.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="${GH}" viewBox="0 0 900 ${GH}" role="img" aria-label="Attack families detected by sqli-guard">
+out('coverage.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="${GH}" viewBox="0 0 900 ${GH}" role="img" aria-label="Attack families detected by payload-guard">
 <rect width="900" height="${GH}" rx="12" fill="${C.bg}" stroke="${C.line}"/>
 <text x="24" y="42" font-family="${SANS}" font-size="22" font-weight="800" fill="${C.text}">${types.length} attack families, one call</text>
 <text x="24" y="62" font-family="${SANS}" font-size="13" fill="${C.mute}">Green outline = added in v1.1</text>
@@ -135,9 +135,9 @@ const evRows = ev.map(([p, label]) => {
 }).join('\n');
 out('evasion.svg', `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="${EH}" viewBox="0 0 900 ${EH}" role="img" aria-label="Evasion techniques caught by decoding">
 <rect width="900" height="${EH}" rx="12" fill="${C.bg}" stroke="${C.line}"/>
-<text x="24" y="40" font-family="${SANS}" font-size="22" font-weight="800" fill="${C.text}">Attackers encode. sqli-guard decodes.</text>
+<text x="24" y="40" font-family="${SANS}" font-size="22" font-weight="800" fill="${C.text}">Attackers encode. payload-guard decodes.</text>
 <text x="620" y="82" font-family="${SANS}" font-size="12" font-weight="700" fill="${C.mute}">without decoding</text>
-<text x="770" y="82" font-family="${SANS}" font-size="12" font-weight="700" fill="${C.green}">sqli-guard</text>
+<text x="770" y="82" font-family="${SANS}" font-size="12" font-weight="700" fill="${C.green}">payload-guard</text>
 <path d="M24 92H876" stroke="${C.line}"/>
 ${evRows}
 </svg>`);

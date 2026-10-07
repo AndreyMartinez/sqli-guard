@@ -1,4 +1,4 @@
-# Publishes sqli-guard to the public npm registry.
+# Publishes payload-guard to the public npm registry.
 #
 # Requires an npm access token stored as the repository secret NPM_TOKEN.
 # Create one at https://www.npmjs.com/settings/<user>/tokens (type:

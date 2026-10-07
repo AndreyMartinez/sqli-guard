@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * sqli-guard
+ * payload-guard
  * ------------------------------------------------------------------
  * Zero-dependency library to detect text-based injections /
  * vulnerabilities (SQL, XSS, command, path traversal, NoSQL, LDAP,
@@ -10,11 +10,11 @@
  * custom sub-functions.
  *
  * Quick use:
- *   const sqliGuard = require('sqli-guard');
- *   sqliGuard.hasSql("SELECT * FROM users");   // true
- *   sqliGuard.hasSql("Your name");             // false
- *   sqliGuard.scan("' OR 1=1 --");             // { safe:false, threats:[...] }
- *   sqliGuard.addValidator('no-emoji', { pattern: /\p{Emoji}/u });
+ *   const payloadGuard = require('payload-guard');
+ *   payloadGuard.hasSql("SELECT * FROM users");   // true
+ *   payloadGuard.hasSql("Your name");             // false
+ *   payloadGuard.scan("' OR 1=1 --");             // { safe:false, threats:[...] }
+ *   payloadGuard.addValidator('no-emoji', { pattern: /\p{Emoji}/u });
  */
 
 const { Scanner } = require('./lib/scanner');

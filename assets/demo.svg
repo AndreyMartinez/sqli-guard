@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="512" viewBox="0 0 900 512" role="img" aria-label="sqli-guard scanning malicious and safe inputs">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="512" viewBox="0 0 900 512" role="img" aria-label="payload-guard scanning malicious and safe inputs">
 <rect width="900" height="512" rx="12" fill="#0d1117" stroke="#30363d"/>
 <rect width="900" height="44" rx="12" fill="#161b22"/><rect y="30" width="900" height="14" fill="#161b22"/>
 <circle cx="26" cy="22" r="6" fill="#ff5f56"/><circle cx="48" cy="22" r="6" fill="#ffbd2e"/><circle cx="70" cy="22" r="6" fill="#27c93f"/>
-<text x="450" y="27" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" fill="#8b949e">node — sqliGuard.scan()</text>
-<text x="36" y="76" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="14" fill="#58a6ff">const sqliGuard = require('sqli-guard');</text>
+<text x="450" y="27" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="13" fill="#8b949e">node — payloadGuard.scan()</text>
+<text x="36" y="76" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="14" fill="#58a6ff">const payloadGuard = require('payload-guard');</text>
 <text x="36" y="104" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="15" fill="#8b949e">&gt;</text>
 <text x="56" y="104" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="15" fill="#e6edf3">' OR 1=1 --</text>
 <rect x="56" y="114" width="66" height="22" rx="5" fill="#f8514922" stroke="#f85149"/>

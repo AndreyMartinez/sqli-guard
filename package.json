@@ -1,5 +1,5 @@
 {
-  "name": "sqli-guard",
+  "name": "payload-guard",
   "version": "1.1.0",
   "description": "Zero-dependency injection scanner for Node.js: SQLi, XSS, SSRF, XXE, Log4Shell, prototype pollution, NoSQL, SSTI & more. Decodes evasion tricks, ships Express middleware and TypeScript types.",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "node": ">=20"
   },
   "keywords": [
-    "sqli-guard",
+    "payload-guard",
     "command-injection",
     "express",
     "express-middleware",

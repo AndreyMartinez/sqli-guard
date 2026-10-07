@@ -7,6 +7,10 @@ and [Semantic Versioning](https://semver.org/).
 
 ## [1.1.0] - 2026-10-07
 
+> **Renamed:** the package is now published as **`payload-guard`**. The `sqli-guard`
+> name is rejected by the npm registry (HTTP 403), and the library covers far more
+> than SQL injection. The API is unchanged.
+
 ### Added
 - **6 new attack families**: `ssrf` (loopback, private ranges, cloud metadata,
   encoded IPs, `gopher://`/`file://`), `xxe`, `prototype-pollution`,
