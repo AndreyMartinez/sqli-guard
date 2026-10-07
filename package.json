@@ -1,35 +1,52 @@
 {
   "name": "sqli-guard",
-  "version": "1.0.0",
-  "description": "Catch injection attacks in text: a zero-dependency, extensible scanner for SQL injection, XSS, command injection, path traversal, NoSQL, LDAP and SSTI",
+  "version": "1.1.0",
+  "description": "Zero-dependency injection scanner for Node.js: SQLi, XSS, SSRF, XXE, Log4Shell, prototype pollution, NoSQL, SSTI & more. Decodes evasion tricks, ships Express middleware and TypeScript types.",
   "main": "index.js",
   "files": [
     "index.js",
+    "index.d.ts",
     "lib/",
+    "assets/",
     "CHANGELOG.md"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "keywords": [
     "sqli-guard",
+    "command-injection",
+    "express",
+    "express-middleware",
+    "injection",
+    "input-sanitization",
+    "input-validation",
+    "jndi",
+    "ldap-injection",
+    "log4shell",
+    "middleware",
+    "nodejs",
+    "nosql-injection",
+    "owasp",
+    "owasp-top-10",
+    "path-traversal",
+    "prototype-pollution",
+    "sanitization",
+    "sanitize",
+    "security",
+    "security-middleware",
+    "security-scanner",
     "sql-injection",
     "sqli",
-    "injection",
-    "security",
-    "security-scanner",
-    "xss",
-    "command-injection",
-    "path-traversal",
-    "nosql-injection",
-    "ldap-injection",
+    "ssrf",
     "ssti",
-    "sanitize",
-    "sanitization",
+    "typescript",
     "validation",
-    "input-validation",
-    "owasp",
-    "waf"
+    "waf",
+    "xpath-injection",
+    "xss",
+    "xxe",
+    "zero-dependency"
   ],
   "homepage": "https://github.com/AndreyMartinez/sqli-guard#readme",
   "bugs": {
@@ -41,8 +58,10 @@
   },
   "scripts": {
     "test": "node --test",
+    "assets": "node scripts/build-assets.js",
     "prepublishOnly": "npm test"
   },
   "author": "Raphael Martinez",
-  "license": "MIT"
+  "license": "MIT",
+  "types": "index.d.ts"
 }

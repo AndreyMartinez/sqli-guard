@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260" role="img" aria-label="sqli-guard: catch injection attacks before they reach your app">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#14233a"/></linearGradient>
+<linearGradient id="a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3fb950"/><stop offset="1" stop-color="#58a6ff"/></linearGradient>
+</defs>
+<rect width="900" height="260" rx="16" fill="url(#g)"/>
+<g opacity=".08" stroke="#58a6ff"><path d="M0 0V260"/><path d="M60 0V260"/><path d="M120 0V260"/><path d="M180 0V260"/><path d="M240 0V260"/><path d="M300 0V260"/><path d="M360 0V260"/><path d="M420 0V260"/><path d="M480 0V260"/><path d="M540 0V260"/><path d="M600 0V260"/><path d="M660 0V260"/><path d="M720 0V260"/><path d="M780 0V260"/><path d="M840 0V260"/><path d="M0 0H900"/><path d="M0 60H900"/><path d="M0 120H900"/><path d="M0 180H900"/><path d="M0 240H900"/></g>
+<g transform="translate(70 62)">
+<path d="M60 0 120 22v52c0 40-26 68-60 84C26 142 0 114 0 74V22z" fill="#161b22" stroke="url(#a)" stroke-width="5"/>
+<path d="M38 74l16 17 32-36" fill="none" stroke="#3fb950" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<text x="230" y="112" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="64" font-weight="800" fill="#e6edf3">sqli-<tspan fill="url(#a)">guard</tspan></text>
+<text x="232" y="154" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="22" fill="#8b949e">Catch injection attacks before they reach your app.</text>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600">
+<rect x="232" y="182" width="150" height="30" rx="15" fill="#3fb95022" stroke="#3fb950"/><text x="307" y="202" text-anchor="middle" fill="#3fb950">0 dependencies</text>
+<rect x="394" y="182" width="150" height="30" rx="15" fill="#58a6ff22" stroke="#58a6ff"/><text x="469" y="202" text-anchor="middle" fill="#58a6ff">14 attack families</text>
+<rect x="556" y="182" width="150" height="30" rx="15" fill="#bc8cff22" stroke="#bc8cff"/><text x="631" y="202" text-anchor="middle" fill="#bc8cff">TypeScript ready</text>
+<rect x="718" y="182" width="120" height="30" rx="15" fill="#d2992222" stroke="#d29922"/><text x="778" y="202" text-anchor="middle" fill="#d29922">v1.1.0</text>
+</g>
+</svg>

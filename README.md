@@ -1,41 +1,97 @@
-SQLI-GUARD 🛡️
-==============
+<div align="center">
 
-[![npm version](https://img.shields.io/npm/v/sqli-guard.svg)](https://www.npmjs.com/package/sqli-guard)
-[![license](https://img.shields.io/npm/l/sqli-guard.svg)](./LICENSE)
-[![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)](./package.json)
+<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/banner.svg" alt="sqli-guard: catch injection attacks before they reach your app" width="100%">
 
-**Catch injection attacks before they reach your app.** A **zero-dependency**
-library that detects text-based injections and vulnerabilities with a single
-call — and is **extensible** with your own custom sub-functions.
+[![npm version](https://img.shields.io/npm/v/sqli-guard.svg?style=flat-square&color=3fb950)](https://www.npmjs.com/package/sqli-guard)
+[![downloads](https://img.shields.io/npm/dm/sqli-guard.svg?style=flat-square&color=58a6ff)](https://www.npmjs.com/package/sqli-guard)
+[![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg?style=flat-square)](./package.json)
+[![types](https://img.shields.io/badge/types-included-3178c6.svg?style=flat-square)](./index.d.ts)
+[![node](https://img.shields.io/node/v/sqli-guard.svg?style=flat-square)](./package.json)
+[![license](https://img.shields.io/npm/l/sqli-guard.svg?style=flat-square)](./LICENSE)
 
-Detects: **SQL injection, XSS, command injection, path traversal, NoSQL, LDAP,
-SSTI (templates) and CRLF**.
+**One call. Fourteen attack families. Zero dependencies.**
 
----
+</div>
 
-Install
--------
+```js
+const guard = require('sqli-guard');
 
+guard.hasSql("' OR 1=1 --");               // true
+guard.hasSql('${jndi:ldap://evil.com/a}'); // true  (Log4Shell)
+guard.hasSql('Hello, my name is Ana');     // false
 ```
+
+<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/demo.svg" alt="Terminal demo: sqli-guard blocking SQL injection, XSS, Log4Shell, SSRF and prototype pollution while allowing normal text" width="100%">
+
+## Why sqli-guard?
+
+- 🛡️ **14 attack families**: SQLi, XSS, command injection, path traversal, NoSQL, LDAP, SSTI, CRLF, **SSRF, XXE, prototype pollution, Log4Shell, XPath, Unicode tricks**.
+- 🕵️ **Sees through evasion**: URL-encoded, double-encoded, HTML entities, `UN/**/ION` comments and fullwidth Unicode are decoded before scanning.
+- ⚡ **Drop-in Express middleware**: `app.use(guard.middleware())` and malicious bodies, queries and params get a `400`.
+- 🧩 **Extensible**: add your own rules with `addValidator`.
+- 📦 **Zero dependencies**, tiny, CommonJS + ESM, **TypeScript types included**.
+- 🎯 **Low false positives**: matches attack *syntax*, not bare words.
+- 🌍 Messages in **English and Spanish**.
+
+## Install
+
+```bash
 npm install sqli-guard
 ```
-
-Import
-------
 
 ```js
 // Node (CommonJS)
 const sqliGuard = require('sqli-guard');
 
-// ESM / React, Vue, Angular
+// ESM / TypeScript / React, Vue, Angular
 import sqliGuard from 'sqli-guard';
 ```
 
----
+## Protect an Express API in one line
 
-Basic use
----------
+```js
+const express = require('express');
+const guard = require('sqli-guard');
+
+const app = express();
+app.use(express.json());
+app.use(guard.middleware());      // scans req.body, req.query, req.params
+
+// POST /login  { "user": { "$ne": null } }
+// -> 400 { "error": "Malicious input detected",
+//          "threats": [{ "type": "nosql-injection", "severity": "high", "path": "body.user" }] }
+```
+
+Options: `sources`, `status`, and `onThreat(req, res, threats)` for custom responses (logging, alerting, rate-limiting offenders).
+
+## What it catches
+
+<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/coverage.svg" alt="The 14 attack families detected by sqli-guard" width="100%">
+
+## Attackers encode. sqli-guard decodes.
+
+Regexes on raw input are trivially bypassed. Every value is also scanned after
+URL decoding (up to 3 rounds), HTML-entity decoding, `\u`/`\x` unescaping, NFKC
+Unicode normalization and SQL-comment stripping. Threats visible only after
+decoding are flagged with `evasion: true`.
+
+<img src="https://raw.githubusercontent.com/AndreyMartinez/sqli-guard/main/assets/evasion.svg" alt="Encoded payloads that bypass naive matching but are caught by sqli-guard" width="100%">
+
+```js
+guard.scan('%27%20OR%201%3D1--').threats[0];
+// { type: 'sql-injection', severity: 'high', match: "' OR 1=1", evasion: true, ... }
+```
+
+## Scan nested data
+
+```js
+guard.scanDeep({ user: { bio: "' OR 1=1 --" }, tags: ['ok', '<script>x</script>'] });
+// { safe: false, threats: [ { path: 'user.bio', ... }, { path: 'tags.1', ... } ] }
+```
+
+Object **keys** are scanned too, so `{"__proto__": ...}` and `{"$where": ...}` payloads are caught.
+
+## Basic use
 
 `hasSql(value)` returns `true` if it detects ANY threat, otherwise `false`.
 
@@ -46,9 +102,6 @@ sqliGuard.hasSql('<script>alert(1)</script>'); // true
 sqliGuard.hasSql('Your name');                 // false
 sqliGuard.hasSql(null);                         // false  (empty = safe)
 ```
-
-Threat detail
--------------
 
 `scan(value)` returns the list of threats found.
 
@@ -66,10 +119,7 @@ sqliGuard.scan("' OR 1=1 --");
 sqliGuard.isSafe('Your name'); // true
 ```
 
----
-
-Language
---------
+## Language
 
 Messages default to English. Pass `lang: 'es'` for Spanish.
 
@@ -81,10 +131,8 @@ es.scan('<script>x</script>').threats[0].message;
 // "Posible XSS (script/HTML malicioso) detectado."
 ```
 
----
 
-Custom validators (sub-functions)
----------------------------------
+## Custom validators (sub-functions)
 
 Add your own patterns with `addValidator(name, spec)`.
 
@@ -130,10 +178,8 @@ scanner.addValidator('no-emoji', {
 });
 ```
 
----
 
-Scanner options
----------------
+## Scanner options
 
 `createScanner(options)`:
 
@@ -142,6 +188,7 @@ Scanner options
 | `lang`        | `'en'` \| `'es'`             | Message language (default `'en'`).   |
 | `categories`  | `string[]`                    | Limit which built-in detectors run.  |
 | `minSeverity` | `'low'`\|`'medium'`\|`'high'` | Minimum reported severity.           |
+| `decode`      | `boolean`                     | Scan decoded views to catch evasion (default `true`). |
 
 ```js
 // SQL injection only, ignore everything else
@@ -153,18 +200,19 @@ const strict = sqliGuard.createScanner({ minSeverity: 'high' });
 
 Available categories: `sql-injection`, `xss`, `command-injection`,
 `path-traversal`, `nosql-injection`, `ldap-injection`, `template-injection`,
-`crlf-injection`.
+`crlf-injection`, `ssrf`, `xxe`, `prototype-pollution`, `log4shell`,
+`xpath-injection`, `unicode-evasion`.
 
----
 
-API
----
+## API
 
 | Method                      | Returns   | Description                             |
 |-----------------------------|-----------|----------------------------------------|
 | `hasSql(value)`             | `boolean` | `true` if any threat is found.         |
 | `isSafe(value)`             | `boolean` | Inverse of `hasSql`.                   |
 | `scan(value)`               | `object`  | `{ safe, value, threats[] }`.          |
+| `scanDeep(obj)`             | `object`  | Scans nested objects/arrays + keys.    |
+| `middleware(options)`       | `function`| Express/Connect guard (HTTP 400).      |
 | `addValidator(name, spec)`  | `Scanner` | Register a custom sub-function.        |
 | `removeValidator(name)`     | `boolean` | Remove a custom validator.             |
 | `listValidators()`          | `string[]`| Registered validator names.            |
@@ -174,16 +222,17 @@ API
 > not bare words. Even so, it is a detection layer — it is **not a replacement**
 > for parameterized queries and proper server-side escaping/sanitization.
 
----
 
-Tests
------
+## Tests
 
 ```
 npm test
 ```
 
-License
--------
+## Contributing
+
+Found a bypass or a false positive? [Open an issue](https://github.com/AndreyMartinez/sqli-guard/issues) with the payload. Run `npm test` before sending a PR, and `npm run assets` to regenerate the README images from real scanner output.
+
+## License
 
 MIT

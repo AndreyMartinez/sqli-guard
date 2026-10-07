@@ -5,7 +5,8 @@
  * ------------------------------------------------------------------
  * Zero-dependency library to detect text-based injections /
  * vulnerabilities (SQL, XSS, command, path traversal, NoSQL, LDAP,
- * template/SSTI, CRLF) with a single call, extensible with your own
+ * template/SSTI, CRLF, SSRF, XXE, prototype pollution, Log4Shell, XPath)
+ * with a single call, extensible with your own
  * custom sub-functions.
  *
  * Quick use:
